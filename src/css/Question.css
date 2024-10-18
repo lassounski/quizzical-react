@@ -1,0 +1,51 @@
+.radio-buttons {
+    display: flex; /* Use Flexbox to arrange buttons in a row */
+    list-style: none; /* Remove default list styles */
+    padding: 0; /* Remove padding */
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+  
+.radio-buttons li {
+    margin-right: 1rem; /* Space between buttons */
+}
+  
+input[type='radio'] {
+    display: none; /* Hide the default radio button */
+}
+
+.radio-label {
+    padding: 0.425rem 1.25rem; /* Padding for the button (10px = 0.625rem, 20px = 1.25rem) */
+    background-color: white; /* Default background color */
+    border: 0.125rem solid #293264; /* Border for the button (2px = 0.125rem) */
+    border-radius: 1rem; /* Rounded corners (5px = 0.3125rem) */
+    cursor: pointer; /* Pointer on hover */
+    transition: background-color 0.3s, border-color 0.3s; /* Smooth transition */
+}
+
+input[type='radio']:checked + .radio-label {
+    background-color: #DBDEF0; /* Background color when selected */
+    color: #293264; /* Text color when selected */
+    border-color: #DBDEF0; /* Border color when selected */
+}
+/* Responsive styles */
+@media (max-width: 600px) {
+    .question--title {
+        font-size: large;
+    }
+
+    .radio-buttons {
+        flex-direction: column; /* Stack buttons on top of each other */
+    }
+
+    .radio-buttons li {
+        margin-bottom: 2rem; /* Space below buttons when they stack */
+        margin-right: 0; /* Remove right margin in vertical layout */
+    }
+}
+
+.question--title {
+    width: 70vw;
+}
