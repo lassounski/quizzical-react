@@ -15,17 +15,17 @@ export default function Question({ props: question }) {
         <div className='question--container'>
             <h2 className='question--title'>{question.title}</h2>
             <ul className="radio-buttons">
-                {question.options.map((option, index) => (
-                    <li key={index}>
+                {question.options.map(option => (
+                    <li key={option.id}>
                         <input
-                            id={`option-${index}`}
+                            id={option.id}
                             type="radio"
-                            name="options"
+                            name={`option-${question.id}`}
                             value={option.value}
                             checked={selectedOption === option.value}
                             onChange={handleChange}
                         />
-                        <label className="radio-label" htmlFor={`option-${index}`}>
+                        <label className="radio-label" htmlFor={option.id}>
                             {option.value}
                         </label>
                     </li>

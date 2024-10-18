@@ -11,8 +11,6 @@ body {
   /* Horizontally center */
   align-items: center;
   /* Vertically center */
-  height: 100vh;
-  /* Full viewport height */
 }
 
 main {
@@ -40,20 +38,6 @@ main {
   color: #4D5B9E;
 }
 
-.start--question::before {
-  content: '🔥';
-  position: absolute;
-  top: -20px;
-  left: 0;
-}
-
-.start--question::after {
-  content: '✨';
-  position: absolute;
-  bottom: -20px;
-  right: 0;
-}
-
 .start-question {
   margin-top: 0;
   margin-bottom: 2rem;
@@ -70,4 +54,10 @@ main {
   color: white;
   background-color: #4D5B9E;
   border-radius: 0.75rem;
+}
+
+.quiz--container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }

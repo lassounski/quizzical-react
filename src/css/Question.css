@@ -1,11 +1,17 @@
+.question--container{
+    border-bottom: 2px solid #DBDEF0;
+    padding-bottom: 0.5rem;
+}
 .radio-buttons {
     display: flex; /* Use Flexbox to arrange buttons in a row */
+    flex-wrap: wrap;
+    align-items: center;
+    
     list-style: none; /* Remove default list styles */
+    
     padding: 0; /* Remove padding */
     margin-top: 1.5rem;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    align-items: center;
+    gap: 1rem;
 }
   
 .radio-buttons li {
