@@ -6,7 +6,7 @@ import QuizScreen from "./components/QuizScreen"
 import './App.css'
 
 function App() {
-  const [isStartGame, setIsStartGame] = useState(false);
+  const [isStartGame, setIsStartGame] = useState(true);
 
   console.log(`isStartGame from App ${isStartGame}`)
 
@@ -15,7 +15,7 @@ function App() {
       {
         isStartGame ?
           <StartScreen setIsStartGame={setIsStartGame} />
-          : <QuizScreen props={setIsStartGame} />
+          : <QuizScreen setIsStartGame={setIsStartGame} />
       }
     </main>
   )

@@ -7,17 +7,11 @@ import { nanoid } from 'nanoid';
 import data from "../questions"
 import Question from './Question';
 
-export default function QuizScreen({ setIsStartGame }) {
-    const [questions, setQuestions] = useState(enrichData(data))
+export default function QuizScreen() {
+    const [questions, setQuestions] = useState([])
     const [isGameFinished, setGameFinished] = useState(false)
     const [gameMessage, setGameMessage] = useState("")
-
-    // for each question I want to know
-    // if it has been selected - to check by the end if all are selected [array] ✅
-    // if it is corect - to check if player won game [array] ✅
-    // each question should highlight correct and wrongly selected answers by the end the game
-    // the question needs to know that the gameIsFinished
-    // the game is only Finished when all questions have been marked
+    const [getDataTrigger, setGetDataTrigger] = useState(0)
 
     function enrichData(data) {
         return data.map(question => {
@@ -62,21 +56,46 @@ export default function QuizScreen({ setIsStartGame }) {
         } else {
             setGameMessage('Please select one option from each question')
             setTimeout(() => {
-                setGameMessage('')
+                setGameMessage("")
             }, 5000);
         }
     }
 
     function playAgain() {
-        setGameMessage('')
-        setQuestions(enrichData(data))
+        setGetDataTrigger((prevTrigger) => prevTrigger + 1);
+        setGameMessage("")
         setGameFinished(false)
     }
-    // useEffect(() => {
-    //     fetch("https://opentdb.com/api.php?amount=5&difficulty=easy&type=multiple")
-    //       .then(response =>  response.json())
-    //       .then(data => setQuestions(data))
-    //   }, []); 
+
+    const fetchData = async () => {
+        try {
+            const response = await fetch('https://opentdb.com/api.php?amount=5&difficulty=easy&type=multiple');
+            setGameMessage("")
+            // Check if the response status is 429
+            if (response.status === 429) {
+                const retryAfter = response.headers.get('Retry-After');
+                const waitTime = retryAfter ? parseInt(retryAfter) * 1000 : 5000; // If Retry-After is provided, use it; otherwise, wait for 5 seconds
+
+                console.warn(`Too many requests. Retrying after ${waitTime / 1000} seconds...`);
+                setGameMessage("☹️ Server is too busy, waiting 5 sec.")
+
+                // Wait for the specified time before retrying
+                setTimeout(() => {
+                    fetchData(); // Retry the request
+                }, waitTime);
+            } else if (response.ok) {
+                const data = await response.json();
+                setQuestions(enrichData(data.results))
+                console.log('Data fetched:', data);
+            } else {
+                console.error('Error fetching data:', response.status);
+            }
+        } catch (error) {
+            console.error('Fetch error:', error);
+        }
+    };
+
+    useEffect(() => fetchData, [getDataTrigger]);
 
     return (
         <div>
@@ -84,13 +103,14 @@ export default function QuizScreen({ setIsStartGame }) {
                 {questions.map(question =>
                     <Question
                         key={question.id}
-                        props={question}
+                        question={question}
+                        isGameFinished={isGameFinished}
                         setQuestions={setQuestions} />)
                 }
             </div>
             <div className='game--container'>
-                <h3 className='game--message'>{gameMessage}</h3>
-                <Button props={isGameFinished} checkAnswers={checkAnswers} playAgain={playAgain} />
+                {gameMessage && <h3 className='game--message'>{gameMessage}</h3>}
+                <Button isGameFinished={isGameFinished} checkAnswers={checkAnswers} playAgain={playAgain} />
             </div>
         </div>
     )

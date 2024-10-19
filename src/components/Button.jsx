@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Button({props: isGameFinished, checkAnswers, playAgain}) {
+export default function Button({ isGameFinished, checkAnswers, playAgain }) {
     return (
         <div className="button--container">
             {isGameFinished ? (

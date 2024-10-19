@@ -36,10 +36,32 @@ input[type='radio']:checked + .radio-label {
     color: #293264; /* Text color when selected */
     border-color: #DBDEF0; /* Border color when selected */
 }
+
+.incorrect-option {
+    padding: 0.425rem 1.25rem; /* Padding for the button (10px = 0.625rem, 20px = 1.25rem) */
+    border: 0.125rem solid #F8BCBC; /* Border for the button (2px = 0.125rem) */
+    border-radius: 1rem; /* Rounded corners (5px = 0.3125rem) */
+    cursor: pointer; /* Pointer on hover */
+    transition: background-color 0.3s, border-color 0.3s; /* Smooth transition */
+    background-color: #F8BCBC;
+    color: #293264; /* Text color when selected */
+}
+
+.correct-option{
+    padding: 0.425rem 1.25rem; /* Padding for the button (10px = 0.625rem, 20px = 1.25rem) */
+    border: 0.125rem solid #94D7A2; /* Border for the button (2px = 0.125rem) */
+    border-radius: 1rem; /* Rounded corners (5px = 0.3125rem) */
+    cursor: pointer; /* Pointer on hover */
+    transition: background-color 0.3s, border-color 0.3s; /* Smooth transition */
+    color: #293264; /* Text color when selected */
+    background-color: #94D7A2;
+}
+
+
 /* Responsive styles */
 @media (max-width: 600px) {
     .question--title {
-        font-size: large;
+        font-size: large;   
     }
 
     .radio-buttons {
