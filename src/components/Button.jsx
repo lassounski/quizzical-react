@@ -1,16 +1,18 @@
 import React from 'react'
 
-export default function Button({props: gameFinished}) {
+export default function Button({props: isGameFinished, checkAnswers, playAgain}) {
 
-    function checkAnswers(){
-    }
+    // function checkAnswers(){
+    //     checkAnswers()
+    // }
 
-    function playAgain() {
-    }
+    // function playAgain() {
+    //     playAgain()
+    // }
 
     return (
         <div className="button--container">
-            {gameFinished ? (
+            {isGameFinished ? (
                 <button className="quizzical--button" onClick={playAgain}>
                     Play again
                 </button>

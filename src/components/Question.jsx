@@ -2,14 +2,35 @@ import React, { useState, useEffect } from 'react'
 
 import '../css/Question.css'
 
-export default function Question({ props: question }) {
+export default function Question({ props: question , setQuestions}) {
     const [selectedOption, setSelectedOption] = useState('');
 
     const handleChange = (event) => {
-        setSelectedOption(event.target.value);
+        const selectedOption = event.target.value
+        const selectedOptionId = event.target.id
+        setSelectedOption(selectedOption)
+       
+        setQuestions(prevQuestions => 
+            prevQuestions.map(prevQuestion => {
+                // found the right question for update
+                if(prevQuestion.id === question.id){
+                    // Check if the selected option is the correct one
+                    const correctOptionSelected = prevQuestion.options.some(
+                        option =>  option.id === selectedOptionId && option.isCorrectOption)
+                    
+                    // Update the question's isCorrectAnswer and isSelected
+                    return {
+                        ...prevQuestion,
+                        isCorrectAnswer: correctOptionSelected,
+                        isSelected: true
+                    }
+                } else {
+                    // leave other questions unchanged
+                    return prevQuestion
+                } 
+            })
+          )
     };
-
-    console.log(`selected: ${selectedOption}`)
 
     return (
         <div className='question--container'>
