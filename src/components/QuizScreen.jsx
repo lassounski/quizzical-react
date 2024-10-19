@@ -9,7 +9,8 @@ import Question from './Question';
 
 export default function QuizScreen({ setIsStartGame }) {
     const [questions, setQuestions] = useState(enrichData(data))
-    const [isGameFinished, setGameFinished] = useState(false);
+    const [isGameFinished, setGameFinished] = useState(false)
+    const [gameMessage, setGameMessage] = useState("")
 
     // for each question I want to know
     // if it has been selected - to check by the end if all are selected [array] ✅
@@ -43,27 +44,33 @@ export default function QuizScreen({ setIsStartGame }) {
     }
 
     function checkAnswers() {
-        const isAllQuestionsSelected = questions
-            .reduce((accumulator, question) => accumulator && question.isSelected, true)
-        if (!isAllQuestionsSelected) {
-            console.log('please selects all questions')
-        }
-
         const questionsCorrectCount = questions
             .reduce((accumulator, question) => {
-                console.log(`${question.title} - correct ${question.isCorrectAnswer}`)
                 return question.isCorrectAnswer ? accumulator + 1 : accumulator
             }, 0)
-            
-        if (questionsCorrectCount === questions.length) {
-            console.log('winner!')
+
+        const isAllQuestionsSelected = questions
+            .reduce((accumulator, question) => accumulator && question.isSelected, true)
+
+        if (isAllQuestionsSelected) {
+            setGameFinished(true)
+            if (questionsCorrectCount === questions.length) {
+                setGameMessage("🏆 5/5 correct answers")
+            } else {
+                setGameMessage(`You scored ${questionsCorrectCount}/${questions.length} correct answers`)
+            }
         } else {
-            console.log(`You have ${questionsCorrectCount}/${questions.length} right`)
+            setGameMessage('Please select one option from each question')
+            setTimeout(() => {
+                setGameMessage('')
+            }, 5000);
         }
     }
 
     function playAgain() {
-        console.log('playagain')
+        setGameMessage('')
+        setQuestions(enrichData(data))
+        setGameFinished(false)
     }
     // useEffect(() => {
     //     fetch("https://opentdb.com/api.php?amount=5&difficulty=easy&type=multiple")
@@ -82,6 +89,7 @@ export default function QuizScreen({ setIsStartGame }) {
                 }
             </div>
             <div className='game--container'>
+                <h3 className='game--message'>{gameMessage}</h3>
                 <Button props={isGameFinished} checkAnswers={checkAnswers} playAgain={playAgain} />
             </div>
         </div>

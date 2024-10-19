@@ -10,7 +10,7 @@ export default function StartScreen({setIsStartGame}) {
         <div className="start--container">
             <h1>Quizzical</h1>
             <p className="start-question">Ready to test your knowledge?</p>
-            <button onClick={toggle} className="start--button">Start quiz</button>
+            <button onClick={toggle} className="quizzical--button">Start quiz</button>
         </div>
     )
 }
