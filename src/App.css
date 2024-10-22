@@ -1,92 +1,35 @@
-* {
-  box-sizing: border-box;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 body {
-  margin: 0;
-
-  display: flex;
-  /* Activate flexbox */
-  justify-content: center;
-  /* Horizontally center */
-  align-items: center;
-  /* Vertically center */
-}
-
-main {
   font-family: 'Karla';
-
-  min-width: 50vw;
-  min-height: 50vw;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  padding: 1.5rem;
-  background-color: #F5F7FB;
 
   background-image: url('/blob1.png'), url('blob2.png');
   background-position: top right, bottom left;
   background-repeat: no-repeat, no-repeat;
 }
 
-.start--container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  color: #4D5B9E;
-}
-
-.start-question {
-  margin-top: 0;
-  margin-bottom: 2rem;
-
-  font-size: 1rem;
-}
-
-.quiz--container {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.game--container {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-
-  margin-top: 2rem;
-}
-
-.game--message{
-  margin-right: 3rem;
-}
-
 .quizzical--button {
-  border: 0px;
-  padding: 1rem 3rem;
-
-  font-size: 1rem;
-
-  color: white;
-  background-color: #4D5B9E;
-  border-radius: 0.75rem;
-  cursor: pointer;
+  @apply
+   bg-blue-700
+   hover:bg-blue-800
+    text-slate-50 
+    text-xl
+    my-8
+    md:text-3xl
+    rounded-xl 
+    px-6 py-3 
+    cursor-pointer;
   transition: transform 0.2s, box-shadow 0.2s; /* Smooth transition for press effect */
 }
 
 .quizzical--button:hover {
-  transform: scale(1.05); /* Button grows slightly on hover */
+  transform: scale(1.02); /* Button grows slightly on hover */
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Add a glowing shadow effect */
 }
 
 .quizzical--button:active {
   transform: scale(0.95) translateY(2px); /* Button shrinks and moves down slightly */
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2); /* Add a pressed shadow effect */
-}
-
-h2, h3 {
-  color: #293264;
 }

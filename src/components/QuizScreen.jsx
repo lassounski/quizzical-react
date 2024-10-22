@@ -4,7 +4,6 @@ import Button from "./Button"
 import _ from 'lodash';
 import { nanoid } from 'nanoid';
 
-import data from "../questions"
 import Question from './Question';
 
 export default function QuizScreen() {
@@ -99,7 +98,7 @@ export default function QuizScreen() {
 
     return (
         <div>
-            <div className='quiz--container'>
+            <div className=''>
                 {questions.map(question =>
                     <Question
                         key={question.id}
@@ -108,8 +107,12 @@ export default function QuizScreen() {
                         setQuestions={setQuestions} />)
                 }
             </div>
-            <div className='game--container'>
-                {gameMessage && <h3 className='game--message'>{gameMessage}</h3>}
+            <div className='flex flex-col items-center'>
+                    <h3 className={`mt-4 transition-opacity duration-1000 text-blue-700 
+                    md:text-2xl md:mt-8
+                    ${gameMessage ? 'opacity-100' : 'opacity-0'}`}>
+                        {gameMessage}
+                    </h3>
                 <Button isGameFinished={isGameFinished} checkAnswers={checkAnswers} playAgain={playAgain} />
             </div>
         </div>

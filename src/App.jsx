@@ -8,10 +8,8 @@ import './App.css'
 function App() {
   const [isStartGame, setIsStartGame] = useState(true);
 
-  console.log(`isStartGame from App ${isStartGame}`)
-
   return (
-    <main className='main--container'>
+    <main className='min-h-screen flex flex-col justify-center'>
       {
         isStartGame ?
           <StartScreen setIsStartGame={setIsStartGame} />

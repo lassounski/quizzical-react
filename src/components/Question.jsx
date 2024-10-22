@@ -1,30 +1,32 @@
-import React, { useState, useEffect } from 'react'
-
-import '../css/Question.css'
+import React, { useState } from 'react'
+import { decode } from 'he';
 
 export default function Question({ question, isGameFinished, setQuestions }) {
     const [selectedOption, setSelectedOption] = useState({});
 
     function calculateOptionStyle(optionId) {
-        console.log(`rending ${optionId} where the selected option is ${selectedOption.id}`)
+        const regularButtonClasses = "text-blue-800 border-2 border-blue-800 bg-white p-1.5 rounded-xl peer-checked:bg-gray-200 peer-checked:border-gray-300"
+        const correctButtonClasses = "text-blue-800 border-2 border-green-300 bg-green-300 p-1.5 rounded-xl peer-checked:bg-green-2300 peer-checked:border-green-300"
+        const incorrectButtonClasses = "text-blue-800 border-2 border-red-300 bg-red-300 p-1.5 rounded-xl peer-checked:bg-red-300 peer-checked:border-red-300"
+        
         if (isGameFinished) {
             // highlight correct option always
             if (question.options.find(option =>
                 option.id === optionId &&
                 option.isCorrectOption)
-            ){
-                return "correct-option"
+            ) {
+                return correctButtonClasses
             }
             // highlight incorrect option only if selected
             if (question.options.find(option =>
                 option.id === selectedOption.id &&
                 option.id === optionId)
-            ){
-                return "incorrect-option"
+            ) {
+                return incorrectButtonClasses
             }
-            return "radio-label"
+            return regularButtonClasses
         } else {
-            return "radio-label"
+            return regularButtonClasses
         }
     }
 
@@ -56,21 +58,25 @@ export default function Question({ question, isGameFinished, setQuestions }) {
     };
 
     return (
-        <div className='question--container'>
-            <h2 className='question--title'>{question.title}</h2>
-            <ul className="radio-buttons">
+        <div className='border-b-2 pb-4 mx-6 border-gray-100'>
+            <h2 className='text-xl  mt-4 mb-2 text-blue-900 md:text-4xl '>{decode(question.title)}</h2>
+            <ul className="flex text-sm justify-center items-center gap-2 text-blue-700 
+            md:text-2xl md:gap-5 md:m-5 flex-wrap">
                 {question.options.map(option => (
-                    <li key={option.id}>
+                    <li className='my-2' key={option.id}>
                         <input
+                            className='peer hidden'
                             id={option.id}
                             type="radio"
                             name={`option-${question.id}`}
-                            value={option.value}
+                            value={decode(option.value)}
                             checked={selectedOption.value === option.value}
                             onChange={handleChange}
                         />
-                        <label className={calculateOptionStyle(option.id)} htmlFor={option.id}>
-                            {option.value}
+                        <label
+                            className={calculateOptionStyle(option.id)}
+                            htmlFor={option.id}>
+                            {decode(option.value)}
                         </label>
                     </li>
                 ))}

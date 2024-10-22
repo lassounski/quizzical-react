@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function Button({ isGameFinished, checkAnswers, playAgain }) {
     return (
-        <div className="button--container">
+        <>
             {isGameFinished ? (
                 <button className="quizzical--button" onClick={playAgain}>
                     Play again
@@ -12,6 +12,6 @@ export default function Button({ isGameFinished, checkAnswers, playAgain }) {
                     Check answers
                 </button>
             )}
-        </div>
+        </>
     )
 }
